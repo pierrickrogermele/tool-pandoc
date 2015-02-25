@@ -24,7 +24,7 @@
 				<arg value="${pandoc.toc}"/>
 				<arg value="-o"/>
 				<arg value="@{output}"/>
-				<arg value="@{input}"/>
+				<arg line="@{input}"/>
 			</exec>
 		</sequential>
 	</macrodef>
