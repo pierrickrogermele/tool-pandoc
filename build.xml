@@ -1,0 +1,26 @@
+<!-- vi: se ft=ant : -->
+<project name="pandoc" default="all">
+
+	<!--~~~~~~~~~~~~
+	~ PANDOC MACRO ~
+	~~~~~~~~~~~~~-->
+
+	<macrodef name="pandoc">
+		<attribute name="input"/>
+		<attribute name="output"/>
+		<sequential>
+			<exec executable="pandoc" failonerror="true">
+				<arg value="@{input}"/>
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<!--~~~~~~~~~~~~~
+	~ EMPTY TARGETS ~
+	~~~~~~~~~~~~~~-->
+
+	<target name="all"/>
+	<target name="clean"/>
+	<target name="test"/>
+
+</project>
