@@ -15,6 +15,7 @@
 		<attribute name="format" default=""/>
 		<attribute name="standalone" default="false"/>
 		<attribute name="selfcontained" default="false"/>
+		<attribute name="mathml" default="false"/>
 
 		<sequential>
 
@@ -22,6 +23,7 @@
 			<condition property="pandoc.standalone" value="-s" else=""><istrue value="@{standalone}"/></condition>
 			<condition property="pandoc.toc" value="--toc" else=""><istrue value="@{toc}"/></condition>
 			<condition property="pandoc.numbering" value="-N" else=""><istrue value="@{numbering}"/></condition>
+			<condition property="pandoc.mathml" value="--mathml" else=""><istrue value="@{mathml}"/></condition>
 			<condition property="pandoc.format" value="" else="-t @{format}"><equals arg1="@{format}" arg2=""/></condition>
 			<condition property="pandoc.self.contained" value="--self-contained" else=""><istrue value="@{selfcontained}"/></condition>
 
@@ -32,6 +34,7 @@
 				<arg line="${pandoc.self.contained}"/>
 				<arg line="${pandoc.numbering}"/>
 				<arg line="${pandoc.toc}"/>
+				<arg line="${pandoc.mathml}"/>
 				<arg line="${pandoc.format}"/>
 				<arg value="--variable=s5-url:${pandoc.dir}/s5/ui/default"/>
 				<arg value="--variable=revealjs-url:${pandoc.dir}/reveal.js"/> <!-- Doesn't work !!! I still get the error "pandoc: Could not find data file templates/default.reveal.js" -->
