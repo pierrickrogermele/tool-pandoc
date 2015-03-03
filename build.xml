@@ -1,6 +1,8 @@
 <!-- vi: se ft=ant : -->
 <project name="pandoc" default="all">
 
+	<dirname property="pandoc.dir" file="${ant.file.pandoc}"/>
+
 	<!--~~~~~~~~~~~~
 	~ PANDOC MACRO ~
 	~~~~~~~~~~~~~-->
@@ -10,18 +12,29 @@
 		<attribute name="output"/>
 		<attribute name="toc" default="false"/>
 		<attribute name="numbering" default="false"/>
+		<attribute name="format" default=""/>
+		<attribute name="standalone" default="false"/>
+		<attribute name="selfcontained" default="false"/>
 
 		<sequential>
 
 			<!-- Set argument values -->
-			<condition property="pandoc.toc" value="--toc"><istrue value="@{toc}"/></condition>
-			<condition property="pandoc.numbering"  value="-N">   <istrue value="@{numbering}"/></condition>
+			<condition property="pandoc.standalone" value="-s" else=""><istrue value="@{standalone}"/></condition>
+			<condition property="pandoc.toc" value="--toc" else=""><istrue value="@{toc}"/></condition>
+			<condition property="pandoc.numbering" value="-N" else=""><istrue value="@{numbering}"/></condition>
+			<condition property="pandoc.format" value="" else="-t @{format}"><equals arg1="@{format}" arg2=""/></condition>
+			<condition property="pandoc.self.contained" value="--self-contained" else=""><istrue value="@{selfcontained}"/></condition>
 
 			<!-- Run command -->
 			<exec executable="pandoc" failonerror="true">
 				<env key="TEXINPUTS" value=""/>
-				<arg value="${pandoc.numbering}"/>
-				<arg value="${pandoc.toc}"/>
+				<arg line="${pandoc.standalone}"/>
+				<arg line="${pandoc.self.contained}"/>
+				<arg line="${pandoc.numbering}"/>
+				<arg line="${pandoc.toc}"/>
+				<arg line="${pandoc.format}"/>
+				<arg value="--variable=s5-url:${pandoc.dir}/s5/ui/default"/>
+				<arg value="--variable=revealjs-url:${pandoc.dir}/reveal.js"/> <!-- Doesn't work !!! I still get the error "pandoc: Could not find data file templates/default.reveal.js" -->
 				<arg value="-o"/>
 				<arg value="@{output}"/>
 				<arg line="@{input}"/>
