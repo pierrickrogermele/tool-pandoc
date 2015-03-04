@@ -3,6 +3,8 @@
 
 	<dirname property="pandoc.dir" file="${ant.file.pandoc}"/>
 
+	<include file="../ant-lib/contrib.xml" as="ant.contrib"/>
+
 	<!--~~~~~~~~~~~~
 	~ PANDOC MACRO ~
 	~~~~~~~~~~~~~-->
@@ -18,6 +20,14 @@
 		<attribute name="mathml" default="false"/>
 
 		<sequential>
+
+			<!-- Reset properties -->
+			<var name="pandoc.standalone" unset="true"/>
+			<var name="pandoc.toc" unset="true"/>
+			<var name="pandoc.numbering" unset="true"/>
+			<var name="pandoc.mathml" unset="true"/>
+			<var name="pandoc.format" unset="true"/>
+			<var name="pandoc.self.contained" unset="true"/>
 
 			<!-- Set argument values -->
 			<condition property="pandoc.standalone" value="-s" else=""><istrue value="@{standalone}"/></condition>
