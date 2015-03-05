@@ -10,18 +10,21 @@
 		<attribute name="output"/>
 		<attribute name="toc" default="false"/>
 		<attribute name="numbering" default="false"/>
+		<attribute name="smart" default="false"/>
 
 		<sequential>
 
 			<!-- Set argument values -->
 			<condition property="pandoc.toc" value="--toc"><istrue value="@{toc}"/></condition>
-			<condition property="pandoc.numbering"  value="-N">   <istrue value="@{numbering}"/></condition>
+			<condition property="pandoc.numbering" value="-N"><istrue value="@{numbering}"/></condition>
+			<condition property="pandoc.smart" value="-S"><istrue value="@{smart}"/></condition>
 
 			<!-- Run command -->
 			<exec executable="pandoc" failonerror="true">
 				<env key="TEXINPUTS" value=""/>
 				<arg value="${pandoc.numbering}"/>
 				<arg value="${pandoc.toc}"/>
+				<arg value="${pandoc.smart}"/>
 				<arg value="-o"/>
 				<arg value="@{output}"/>
 				<arg line="@{input}"/>
