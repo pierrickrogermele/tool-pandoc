@@ -20,6 +20,7 @@
 		<attribute name="selfcontained" default="false"/>
 		<attribute name="mathml" default="false"/>
 		<attribute name="latexengine" default=""/>
+		<attribute name="refdocx" default=""/>
 
 		<sequential>
 
@@ -32,6 +33,7 @@
 			<var name="pandoc.self.contained" unset="true"/>
 			<var name="pandoc.smart" unset="true"/>
 			<var name="pandoc.latex.engine" unset="true"/>
+			<var name="pandoc.ref.docx" unset="true"/>
 
 			<!-- Set argument values -->
 			<condition property="pandoc.smart" value="-S" else=""><istrue value="@{smart}"/></condition>
@@ -42,6 +44,7 @@
 			<condition property="pandoc.format" value="" else="-t @{format}"><equals arg1="@{format}" arg2=""/></condition>
 			<condition property="pandoc.self.contained" value="--self-contained" else=""><istrue value="@{selfcontained}"/></condition>
 			<condition property="pandoc.latex.engine" value="" else="--latex-engine=@{latexengine}"><equals arg1="@{latexengine}" arg2=""/></condition>
+			<condition property="pandoc.ref.docx" value="" else="--reference-docx=@{refdocx}"><equals arg1="@{refdocx}" arg2=""/></condition>
 
 			<!-- Run command -->
 			<exec executable="pandoc" failonerror="true">
@@ -54,6 +57,7 @@
 				<arg line="${pandoc.mathml}"/>
 				<arg line="${pandoc.format}"/>
 				<arg line="${pandoc.latex.engine}"/>
+				<arg line="${pandoc.ref.docx}"/>
 				<arg value="--variable=s5-url:${pandoc.dir}/s5/ui/default"/>
 				<arg value="--variable=revealjs-url:${pandoc.dir}/reveal.js"/> <!-- Doesn't work !!! I still get the error "pandoc: Could not find data file templates/default.reveal.js" -->
 				<arg value="-o"/>
