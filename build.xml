@@ -22,6 +22,7 @@
 		<attribute name="latexengine" default=""/>
 		<attribute name="documentclass" default=""/>
 		<attribute name="slidelevel" default=""/>
+		<attribute name="refdocx" default=""/>
 
 		<sequential>
 
@@ -36,6 +37,7 @@
 			<var name="pandoc.latex.engine" unset="true"/>
 			<var name="pandoc.document.class" unset="true"/>
 			<var name="pandoc.slive.level" unset="true"/>
+			<var name="pandoc.ref.docx" unset="true"/>
 
 			<!-- Set argument values -->
 			<condition property="pandoc.smart" value="-S" else=""><istrue value="@{smart}"/></condition>
@@ -48,6 +50,7 @@
 			<condition property="pandoc.latex.engine" value="" else="--latex-engine=@{latexengine}"><equals arg1="@{latexengine}" arg2=""/></condition>
 			<condition property="pandoc.document.class" value="" else="-V documentclass=@{documentclass}"><equals arg1="@{documentclass}" arg2=""/></condition>
 			<condition property="pandoc.slide.level" value="" else="--slide-level=@{slidelevel}"><equals arg1="@{slidelevel}" arg2=""/></condition>
+			<condition property="pandoc.ref.docx" value="" else="--reference-docx=@{refdocx}"><equals arg1="@{refdocx}" arg2=""/></condition>
 
 			<!-- Run command -->
 			<exec executable="pandoc" failonerror="true">
@@ -62,6 +65,7 @@
 				<arg line="${pandoc.latex.engine}"/>
 				<arg line="${pandoc.document.class}"/>
 				<arg line="${pandoc.slide.level}"/>
+				<arg line="${pandoc.ref.docx}"/>
 				<arg value="--variable=s5-url:${pandoc.dir}/s5/ui/default"/>
 				<arg value="--variable=revealjs-url:${pandoc.dir}/reveal.js"/> <!-- Doesn't work !!! I still get the error "pandoc: Could not find data file templates/default.reveal.js" -->
 				<arg value="-o"/>
