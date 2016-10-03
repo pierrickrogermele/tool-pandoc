@@ -16,6 +16,7 @@
 		<attribute name="numbering" default="false"/>
 		<attribute name="smart" default="false"/>
 		<attribute name="format" default=""/>
+		<attribute name="incremental" default="false"/>
 		<attribute name="standalone" default="false"/>
 		<attribute name="selfcontained" default="false"/>
 		<attribute name="mathml" default="false"/>
@@ -32,6 +33,7 @@
 			<var name="pandoc.numbering" unset="true"/>
 			<var name="pandoc.mathml" unset="true"/>
 			<var name="pandoc.format" unset="true"/>
+			<var name="pandoc.incremental" unset="true"/>
 			<var name="pandoc.self.contained" unset="true"/>
 			<var name="pandoc.smart" unset="true"/>
 			<var name="pandoc.latex.engine" unset="true"/>
@@ -41,6 +43,7 @@
 
 			<!-- Set argument values -->
 			<condition property="pandoc.smart" value="-S" else=""><istrue value="@{smart}"/></condition>
+			<condition property="pandoc.incremental" value="-i" else=""><istrue value="@{incremental}"/></condition>
 			<condition property="pandoc.standalone" value="-s" else=""><istrue value="@{standalone}"/></condition>
 			<condition property="pandoc.toc" value="--toc" else=""><istrue value="@{toc}"/></condition>
 			<condition property="pandoc.numbering" value="-N" else=""><istrue value="@{numbering}"/></condition>
@@ -58,6 +61,7 @@
 				<arg line="${pandoc.numbering}"/>
 				<arg line="${pandoc.toc}"/>
 				<arg line="${pandoc.smart}"/>
+				<arg line="${pandoc.incremental}"/>
 				<arg line="${pandoc.standalone}"/>
 				<arg line="${pandoc.self.contained}"/>
 				<arg line="${pandoc.mathml}"/>
